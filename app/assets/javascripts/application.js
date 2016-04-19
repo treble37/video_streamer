@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require angular
 //= FileAPI
 //= require ng-file-upload-all
