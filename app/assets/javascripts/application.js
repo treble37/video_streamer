@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require angular
+//= FileAPI
+//= require ng-file-upload-all
 
 //= require_tree .
