@@ -1,18 +1,22 @@
-%h1 Listing videos
+.row
+  .col-md-8
+    %h1 Listing videos
 
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Watch Video
+          %th Edit Fields
+          %th Delete Video
 
-  %tbody
-    - @videos.each do |video|
-      %tr
-        %td= link_to 'Show', user_video_path(@user, video)
-        %td= link_to 'Edit', edit_user_video_path(@user, video)
-        %td= link_to 'Destroy', user_video_path(@user.id, video.id), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %tbody
+        - @videos.each do |video|
+          %tr
+            %td= link_to 'Show', user_video_path(@user, video)
+            %td= link_to 'Edit', edit_user_video_path(@user, video)
+            %td= link_to 'Destroy', user_video_path(@user.id, video.id), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-= link_to 'New Video', new_user_video_path(:user_id => @user.id)
+    %br
+    = link_to 'New Video', new_user_video_path(:user_id => @user.id), { class: "btn btn-primary" }
+    %br
+    = paginate @videos, theme: 'twitter-bootstrap-3'

@@ -7,7 +7,8 @@
       var startTime = new Date().getTime();
       $scope.files = files;
       $scope.errFiles = errFiles;
-      angular.forEach(files, function(file) {
+      $scope.estimatedTimes = [];
+      angular.forEach(files, function(file, key) {
           file.upload = Upload.upload({
               url: '/users/1/videos.json',
               fields: { 'video[title]': $scope.title,
@@ -26,8 +27,7 @@
           }, function (evt) {
               var currentTime = new Date().getTime();
               var uploadSpeed = evt.loaded/(currentTime - startTime);
-              var estimatedTime = (currentTime - startTime)/1000;
-              console.log("Time elapsed: "+ estimatedTime);
+              $scope.estimatedTimes[key] = (currentTime - startTime)/uploadSpeed;
               file.progress = Math.min(100, parseInt(100.0 *
                                        evt.loaded / evt.total));
           });

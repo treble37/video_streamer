@@ -1,6 +1,15 @@
-%p#notice= notice
+.row
+  .col-md-10
+    %p File Name: #{@video.video_file_file_name}
+    %p Content Type: #{@video.video_file_content_type}
+    %p File Size: #{@video.video_file_file_size}
+.row
+  .col-md-10
+    = render partial: 'video_embed', locals: { video_url: @video.video_file.url }
+.row
+  .col-md-10
+    %p#notice= notice
 
-
-= link_to 'Edit', edit_video_path(@video)
-\|
-= link_to 'Back', videos_path
+    = link_to 'Edit', edit_user_video_path(user_id: @user.id, id: @video.id)
+    \|
+    = link_to 'Back', user_videos_path(@user)

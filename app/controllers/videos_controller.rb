@@ -15,13 +15,13 @@
 #
 
 class VideosController < ApplicationController
-  before_action :set_video, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index, :new, :create]
+  before_action :set_user, only: [:index, :show, :edit, :new, :create, :destroy]
+  before_action :set_video, only: [:show, :edit]
 
   # GET /videos
   # GET /videos.json
   def index
-    @videos = @user.videos
+    @videos = @user.videos.page params[:page]
   end
 
   # GET /videos/1
@@ -56,6 +56,7 @@ class VideosController < ApplicationController
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
+    @video = @user.videos.find(params[:id])
     respond_to do |format|
       if @video.update(video_params)
         format.html { redirect_to user_videos_path(@user), notice: 'Video was successfully updated.' }
@@ -70,9 +71,10 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
+    @video = @user.videos.find(params[:id])
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to user_videos_url(@user), notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

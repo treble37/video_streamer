@@ -86,6 +86,7 @@ Rails.application.configure do
                                 s3_permissions: {
                                   original: "public-read"
                                 },
-                                path: "/videos/:id/:filename"
+                                path: "/videos/:id/:filename",
+                                url: ":s3_domain_url"
                               }
 end

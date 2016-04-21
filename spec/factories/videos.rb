@@ -16,8 +16,9 @@
 
 FactoryGirl.define do
   factory :video do
-    title "MyString"
+    sequence(:title) { |n| "Title#{n}" }
     description "MyText"
-    user_id 1
+    video_file { fixture_file_upload(File.join(Rails.root, "spec", "fixtures", "videos", "nature_clip.mp4"), "video/mp4") }
+    user
   end
 end

@@ -61,6 +61,8 @@ gem 'pundit'
 gem 'lol_dba', require: false
 gem 'foreman'
 gem 'newrelic_rpm'
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 group :development do
   gem 'sextant'
@@ -90,6 +92,7 @@ group :test do
   gem 'launchy'
   gem 'codeclimate-test-reporter', require: nil
   gem 'shoulda-matchers'
+  gem 'poltergeist'
 end
 
 group :production, :staging do
