@@ -34,8 +34,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'angularjs-rails'
 gem 'paperclip'
-gem 'aws-sdk', '>= 2.0.34'
+gem 'aws-sdk', '< 2.0'
 gem 'bootstrap-sass', '~> 3.3.6'
+gem 'simple_form'
+gem 'angular_rails_csrf'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -87,7 +89,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'codeclimate-test-reporter', require: nil
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
 end
 
 group :production, :staging do

@@ -1,0 +1,19 @@
+= simple_form_for ([@user, @video]) do |f|
+  - if @video.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
+      %ul
+        - @video.errors.full_messages.each do |msg|
+          %li= msg
+  = f.input :title, input_html: { "ng-model" => "title" }
+  = f.input :description, input_html: { "ng-model" => "description" }
+  = f.input :video_file, as: :file, input_html: { "ngf-select" => "uploadFiles($files, $invalidFiles)", "ng-model" => "video_file" }
+  Files:
+  %ul
+    %li{"ng-repeat" => "f in files", :style => "font:smaller"}
+      {{f.name}} {{f.$errorParam}}
+      %span.progress{"ng-show" => "f.progress >= 0"}
+        %div{"ng-bind" => "f.progress + '%'", :style => "width:{{f.progress}}%"}
+    %li{"ng-repeat" => "f in errFiles", :style => "font:smaller"}
+      {{f.name}} {{f.$error}} {{f.$errorParam}}
+      {{errorMsg}}
