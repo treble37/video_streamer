@@ -12,16 +12,18 @@
 #  video_file_content_type :string
 #  video_file_file_size    :integer
 #  video_file_updated_at   :datetime
+#  length                  :string
 #
 
 class VideosController < ApplicationController
-  before_action :set_user, only: [:index, :show, :edit, :new, :create, :destroy]
+  before_action :set_user
   before_action :set_video, only: [:show, :edit]
 
   # GET /videos
   # GET /videos.json
   def index
-    @videos = @user.videos.page params[:page]
+    @videos = @user.videos
+    @videos = @videos.order(:id).page params[:page]
   end
 
   # GET /videos/1
@@ -91,6 +93,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:title, :description, :video_file)
+      params.require(:video).permit(:title, :description, :length, :video_file)
     end
 end

@@ -12,6 +12,7 @@
 #  video_file_content_type :string
 #  video_file_file_size    :integer
 #  video_file_updated_at   :datetime
+#  length                  :string
 #
 
 require 'rails_helper'

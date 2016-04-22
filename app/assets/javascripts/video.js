@@ -2,7 +2,13 @@
 
 (function(angular) {
   function videoUploaderCtr($scope, $routeParams, Upload, $timeout) {
-    $scope.videoResource = {title: "", descripiton: "", video_file: ""};
+    $scope.videoResource = {title: "", description: "", video_file: ""};
+    $scope.editInit = function(userId, title, description, length) {
+      $scope.title = title;
+      $scope.description = description;
+      $scope.userId = userId;
+      $scope.length = length;
+    }
     $scope.uploadFiles = function(files, errFiles) {
       var startTime = new Date().getTime();
       $scope.files = files;
@@ -10,7 +16,7 @@
       $scope.estimatedTimes = [];
       angular.forEach(files, function(file, key) {
           file.upload = Upload.upload({
-              url: '/users/1/videos.json',
+              url: '/users/' + $scope.userId + '/videos.json',
               fields: { 'video[title]': $scope.title,
                         'video[description]': $scope.description,
                         'video[video_file]': $scope.video_file },

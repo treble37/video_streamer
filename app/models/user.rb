@@ -12,4 +12,5 @@
 
 class User < ActiveRecord::Base
   has_many :videos, dependent: :destroy
+  accepts_nested_attributes_for :videos
 end

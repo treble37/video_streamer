@@ -11,20 +11,27 @@ describe "VideoPages" do
     expect(page).to have_content "File Name: nature_clip.mp4"
     expect(page).to have_content "Content Type: video/mp4"
     expect(page).to have_content "File Size: 1065903"
+    expect(page).to have_content "Length: 5:00"
   end
 
   it "user edits video information" do
-    visit edit_user_video_path(@user, @videos.second)
-    fill_in "video_title", with: "Star Wars: Phantom Menace"
-    fill_in "video_description", with: "Please don't watch this"
-    click_button "Save"
+    video_id = @videos.second.id
+    video_title = "Star Wars: Phantom Menace"
+    video_desc = "Please don't watch this"
+    video_length = "8:05"
+    visit edit_user_video_path(@user, id: video_id)
+    fill_in "video_title", with: video_title
+    fill_in "video_description", with: video_desc
+    fill_in "video_length", with: video_length
+    click_button "Update Video"
+    visit user_video_path(@user, id: video_id)
+    expect(page).to have_content video_title
+    expect(page).to have_content video_desc
+    expect(page).to have_content video_length
   end
 
   it "user deletes video" do
-
-  end
-
-  it "user uploads new video" do
-
+    visit user_videos_path(@user)
+    expect { first(:link, "Destroy").click }.to change(Video, :count).by(-1)
   end
 end

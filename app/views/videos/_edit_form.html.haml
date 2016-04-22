@@ -1,0 +1,12 @@
+%div{ "ng-controller" => "videoUploaderCtr", "ng-init" => "editInit('#{@user.id}', '#{@video.title}', '#{@video.description}', '#{@video.length}')"}
+  = simple_form_for [@user, @video], url: url_for(action: :update, controller: :videos), method: :patch do |f|
+    - if @video.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
+        %ul
+          - @video.errors.full_messages.each do |msg|
+            %li= msg
+    = f.input :title, input_html: { "ng-model" => "title" }
+    = f.input :description, input_html: { "ng-model" => "description" }
+    = f.input :length, input_html: { "ng-model" => "length" }
+    = f.button :submit

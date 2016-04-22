@@ -1,22 +1,24 @@
-= simple_form_for ([@user, @video]) do |f|
-  - if @video.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
-      %ul
-        - @video.errors.full_messages.each do |msg|
-          %li= msg
-  = f.input :title, input_html: { "ng-model" => "title" }
-  = f.input :description, input_html: { "ng-model" => "description" }
-  %span.btn.btn-info.btn-file
-    = f.input :video_file, as: :file, label: "Click to choose and upload file", input_html: { "ngf-select" => "uploadFiles($files, $invalidFiles)", "ng-model" => "video_file", "ngf-pattern" => "'video/mp4'", "ngf-model-invalid" => "invalidFile"}
-  %h4 Files:
-  %div.alert.alert-danger{"ng-show" => "invalidFile.$error === 'pattern'"} Oops, only mp4 video files are allowed
-  %ul.list-group
-    %li.list-group-item{"ng-repeat" => "f in files track by $index", :style => "font:smaller"}
-      {{f.name}} {{f.$errorParam}} 
-      %div.progress{"ng-show" => "f.progress >= 0"}
-        %div.progress-bar{"role" => "progress-bar", "ng-bind" => "f.progress + '%'", :style => "width:{{f.progress}}%"}
-      %div.label.label-warning{ "ng-bind" => "'Time left (msec): ' + estimatedTimes[$index]" }
-    %li.list-group-item{"ng-repeat" => "f in errFiles", :style => "font:smaller"}
-      {{f.name}} {{f.$error}} {{f.$errorParam}}
-      {{errorMsg}}
+%div{ "ng-controller" => "videoUploaderCtr", "ng-init" => "editInit('#{@user.id}', '#{@video.title}', '#{@video.description}')"}
+  = simple_form_for ([@user, @video]) do |f|
+    - if @video.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
+        %ul
+          - @video.errors.full_messages.each do |msg|
+            %li= msg
+    = f.input :title, input_html: { "ng-model" => "title" }
+    = f.input :description, input_html: { "ng-model" => "description" }
+    = f.input :length, input_html: { "ng-model" => "length" }
+    %span.btn.btn-info.btn-file
+      = f.input :video_file, as: :file, label: "Click to choose and upload file", input_html: { "ngf-select" => "uploadFiles($files, $invalidFiles)", "ng-model" => "video_file", "ngf-pattern" => "'video/mp4'", "ngf-model-invalid" => "invalidFile"}
+    %h4 Files:
+    %div.alert.alert-danger{"ng-show" => "invalidFile.$error === 'pattern'"} Oops, only mp4 video files are allowed
+    %ul.list-group
+      %li.list-group-item{"ng-repeat" => "f in files track by $index", :style => "font:smaller"}
+        {{f.name}} {{f.$errorParam}} 
+        %div.progress{"ng-show" => "f.progress >= 0"}
+          %div.progress-bar{"role" => "progress-bar", "ng-bind" => "f.progress + '%'", :style => "width:{{f.progress}}%"}
+        %div.label.label-warning{ "ng-bind" => "'Time left (msec): ' + estimatedTimes[$index]" }
+      %li.list-group-item{"ng-repeat" => "f in errFiles", :style => "font:smaller"}
+        {{f.name}} {{f.$error}} {{f.$errorParam}}
+        {{errorMsg}}
