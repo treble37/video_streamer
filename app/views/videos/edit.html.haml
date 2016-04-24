@@ -2,6 +2,7 @@
 
 = render 'edit_form'
 
-= link_to 'Show', user_video_path(@user, @video)
+%br
+= link_to 'Show', user_video_path(@user, @video), { class:  "btn btn-default" }
 \|
-= link_to 'Back', user_videos_path(@user)
+= link_to 'Back', user_videos_path(@user), { class:  "btn btn-info" }

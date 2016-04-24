@@ -2,18 +2,14 @@
 #
 # Table name: videos
 #
-#  id                      :integer          not null, primary key
-#  title                   :string
-#  description             :text
-#  user_id                 :integer
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  video_file_file_name    :string
-#  video_file_content_type :string
-#  video_file_file_size    :integer
-#  video_file_updated_at   :datetime
-#  length                  :string
-#  direct_video_url        :text
+#  id               :integer          not null, primary key
+#  title            :string
+#  description      :text
+#  user_id          :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  length           :string
+#  direct_video_url :text
 #
 
 class VideosController < ApplicationController
@@ -57,11 +53,11 @@ class VideosController < ApplicationController
   end
 
   def create_s3_direct
+    # this method is called from AngularJS http post call
     s3 = AWS::S3.new(access_key_id: Figaro.env.aws_access_key_id, secret_access_key: Figaro.env.aws_secret_access_key)
     bucket = s3.buckets[Figaro.env.s3_bucket_name]
-    @video = @user.videos.create(title: params["title"], description: params["description"], length: params["length"], video_file_file_name: params["video_file_file_name"] )
+    @video = @user.videos.create(title: params["title"], description: params["description"], length: params["length"], video_type: params["video_type"], video_filename: params["video_filename"])
     key = AmazonService.s3_key(@user, DateTime.now.year, params["title"])
-#    s3_post_url = AmazonService.signed_url(@video, params["title"], :write).to_s
     @video.direct_video_url = AmazonService.signed_url(@video, params["title"], :read).to_s
     @video.save
     signed_data = bucket.presigned_post("acl"=>"public-read", "success_action_status" => "201")
@@ -111,7 +107,7 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:title, :description, :length, :video_file)
+      params.require(:video).permit(:title, :description, :length, :video_filename, :video_type)
     end
 
     # generate the policy document that amazon is expecting.

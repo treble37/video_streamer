@@ -85,12 +85,18 @@ From /videos, you can create a new video. After you create a new video, you can 
 
 This was created and tested on an Ubuntu 14.04 Linux system.  It should likely run on an OSx box without any trouble.
 
+###Testing and Limitations
+
+This was system was tested with small video files downloaded from Vimeo ranging in size from 1 to 50 MB.  Obviously video files can be much larger, so this is definitely something that should be tested with future work. It was also tested on a local development box and not on a cloud provider such as Heroku. This is something that could be done on a future release.
+
 ###Future work
 
-I could add a user login system.
+There are a few features I would like to add in a future release. I list them below:
 
-####User Interface
-
-I could allow a user to upload a new video and override an existing one. I could also change the video listing to use image thumbnails.
+1 - Add a user login system.
+2 - Delete the video in the S3 bucket when a user deletes the video model
+3 - Some kind of image hover thumbnail as a user hovers over video choices
+4 - I could allow a user to upload a new video and override an existing one. I could also change the video listing to use image thumbnails.
+5 - A bit more test coverage would be a good goal. Right now, especially as more behavior is added to the system.
 
 As always, in any software project, you have to decide on the core functionality to ship.

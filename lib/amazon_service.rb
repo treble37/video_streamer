@@ -6,6 +6,6 @@ class AmazonService
   end
 
   def self.s3_key(user, year, title)
-    "#{year}/#{user.last_name}_#{user.first_name}_#{DateTime.now.to_s}_#{title}".gsub(/:/, '-')
+    "#{year}/#{user.last_name}_#{title}_#{DateTime.now.to_s}".gsub(/:/, '-')
   end
 end

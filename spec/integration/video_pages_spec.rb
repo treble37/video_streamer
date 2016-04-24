@@ -8,10 +8,10 @@ describe "VideoPages" do
 
   it "user navigates to watch a video" do
     visit user_video_path(@user, @videos.first)
-    expect(page).to have_content "File Name: nature_clip.mp4"
-    expect(page).to have_content "Content Type: video/mp4"
-    expect(page).to have_content "File Size: 1065903"
+    expect(page).to have_content "Title1"
+    expect(page).to have_content "Description1"
     expect(page).to have_content "Length: 5:00"
+    expect(page).to have_content "video/mp4"
   end
 
   it "user edits video information" do

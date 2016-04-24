@@ -2,17 +2,16 @@
   .col-md-10
     %p Video title: #{@video.title}
     %p Video description: #{@video.description}
-    %p File Name: #{@video.video_file_file_name}
-    %p Content Type: #{@video.video_file_content_type}
-    %p File Size: #{@video.video_file_file_size}
+    %p File Name: #{@video.video_filename}
+    %p Content Type: #{@video.video_type}
     %p Length: #{@video.length}
 .row
   .col-md-10
-    = render partial: 'video_embed', locals: { video_url: @video.video_file.url }
+    = render partial: 'video_embed', locals: { video_url: @video.direct_video_url }
 .row
   .col-md-10
     %p#notice= notice
-
-    = link_to 'Edit', edit_user_video_path(user_id: @user.id, id: @video.id)
+    %br
+    = link_to 'Edit', edit_user_video_path(user_id: @user.id, id: @video.id), { class: "btn btn-default" }
     \|
-    = link_to 'Back', user_videos_path(@user)
+    = link_to 'Back', user_videos_path(@user), { class: "btn btn-info" }

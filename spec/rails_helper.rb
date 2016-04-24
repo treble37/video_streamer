@@ -5,7 +5,6 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-require 'paperclip/matchers'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
 
@@ -65,14 +64,6 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-  config.include Paperclip::Shoulda::Matchers
-
-  config.after(:all) do
-    if Rails.env.test?
-      test_uploads = Dir["#{Rails.root}/test_uploads/video_files/nature_clip.mp4"]
-      FileUtils.rm_rf(test_uploads)
-    end
-  end
 
   config.include Rails.application.routes.url_helpers
   config.include Capybara::DSL

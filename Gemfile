@@ -33,7 +33,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem 'angularjs-rails'
-gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'

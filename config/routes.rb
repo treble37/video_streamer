@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :users do
-    resources :videos do
+    resources :videos, except: [:create] do
       collection do
         post "create_s3_direct", to: "videos#create_s3_direct", as: :create_s3_direct
       end
