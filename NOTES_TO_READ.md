@@ -38,6 +38,43 @@ If you see ng-file-upload-all.js in app/assets/javascripts you do not have to do
 
 Step 4: You have to use your own Amazon S3 secret key information.  See application.yml.example for the format.  Substitute "xxx" with your own secret keys.
 
+Step 5: Enable CORS on Amazon with the following rule set:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>PUT</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>DELETE</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+```
+Source: http://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html#how-do-i-enable-cors
+
+Step 6: Enable this default bucket policy on your Amazon S3 plan and substitutde "bucket_name" with the name of your actual bucket:
+
+```
+{
+	"Version": "2012-10-17",
+	"Id": "Policy1461432288028",
+	"Statement": [
+		{
+			"Sid": "Stmt1461432283724",
+			"Effect": "Allow",
+			"Principal": {
+				"AWS": "*"
+			},
+			"Action": "s3:*",
+			"Resource": "arn:aws:s3:::bucket_name/*"
+		}
+	]
+}
+```
+
 ###Running the web application
 
 If you've done up to Step 3, you should be able to navigate to http://localhost:3000/user_id/videos. Depending on if this is your first user, user_id will likely be equal to 1. But you may have to check with rails console to be sure.

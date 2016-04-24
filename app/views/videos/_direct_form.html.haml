@@ -1,0 +1,19 @@
+%div{ "ng-controller" => "videoUploaderCtr", "ng-init" => "editInit('#{@user.id}', '#{@video.title}', '#{@video.description}', '5 min', '#{Figaro.env.s3_bucket_name}')"}
+  = simple_form_for ([@user, @video]) do |f|
+    - if @video.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@video.errors.count, "error")} prohibited this video from being saved:"
+        %ul
+          - @video.errors.full_messages.each do |msg|
+            %li= msg
+    = f.input :title, input_html: { "ng-model" => "title" }
+    = f.input :description, input_html: { "ng-model" => "description" }
+    = f.input :length, input_html: { "ng-model" => "length" }
+    %span.btn.btn-info.btn-file
+      = f.input :video_file, as: :file, label: "Click to choose and upload file", input_html: { "ngf-select" => "directUpload($file)", "ng-model" => "video_file", "ngf-pattern" => "'video/mp4'", "ngf-model-invalid" => "invalidFile"}
+    %h4 Files:
+    %div.alert.alert-danger{"ng-show" => "invalidFile.$error === 'pattern'"} Oops, only mp4 video files are allowed
+    {{video_file.name}} {{video_file.$errorParam}}
+    %div.progress{"ng-show" => "video_file.progress >= 0"}
+      %div.progress-bar{"role" => "progress-bar", "ng-bind" => "video_file.progress + '%'", :style => "width:{{video_file.progress}}%"}
+    %div.label.label-warning{ "ng-show" => "video_file.progress >=0", "ng-bind" => "'Time left (msec): ' + estimatedTime" }

@@ -14,3 +14,4 @@
 s3_bucket_name: xxx
 aws_access_key_id: xxx
 aws_secret_access_key: xxx
+s3_max_file_size: xxx

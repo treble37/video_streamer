@@ -13,6 +13,7 @@
 #  video_file_file_size    :integer
 #  video_file_updated_at   :datetime
 #  length                  :string
+#  direct_video_url        :text
 #
 
 FactoryGirl.define do

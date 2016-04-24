@@ -63,6 +63,7 @@ gem 'foreman'
 gem 'newrelic_rpm'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development do
   gem 'sextant'

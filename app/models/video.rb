@@ -13,10 +13,11 @@
 #  video_file_file_size    :integer
 #  video_file_updated_at   :datetime
 #  length                  :string
+#  direct_video_url        :text
 #
 
 class Video < ActiveRecord::Base
   belongs_to :user
-  has_attached_file :video_file
-  validates_attachment :video_file, presence: true, content_type: { content_type: "video/mp4" }
+  #has_attached_file :video_file
+  #validates_attachment :video_file, presence: true, content_type: { content_type: "video/mp4" }
 end

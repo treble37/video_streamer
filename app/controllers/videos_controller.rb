@@ -13,6 +13,7 @@
 #  video_file_file_size    :integer
 #  video_file_updated_at   :datetime
 #  length                  :string
+#  direct_video_url        :text
 #
 
 class VideosController < ApplicationController
@@ -55,6 +56,23 @@ class VideosController < ApplicationController
     end
   end
 
+  def create_s3_direct
+    s3 = AWS::S3.new(access_key_id: Figaro.env.aws_access_key_id, secret_access_key: Figaro.env.aws_secret_access_key)
+    bucket = s3.buckets[Figaro.env.s3_bucket_name]
+    @video = @user.videos.create(title: params["title"], description: params["description"], length: params["length"], video_file_file_name: params["video_file_file_name"] )
+    key = AmazonService.s3_key(@user, DateTime.now.year, params["title"])
+#    s3_post_url = AmazonService.signed_url(@video, params["title"], :write).to_s
+    @video.direct_video_url = AmazonService.signed_url(@video, params["title"], :read).to_s
+    @video.save
+    signed_data = bucket.presigned_post("acl"=>"public-read", "success_action_status" => "201")
+    render :json => {
+      fields: signed_data.fields.merge(
+          "policy" => s3_upload_policy_document,
+          "signature" => s3_upload_signature,
+          "key" => key ),
+     }
+  end
+
   # PATCH/PUT /videos/1
   # PATCH/PUT /videos/1.json
   def update
@@ -95,4 +113,27 @@ class VideosController < ApplicationController
     def video_params
       params.require(:video).permit(:title, :description, :length, :video_file)
     end
+
+    # generate the policy document that amazon is expecting.
+    def s3_upload_policy_document
+      return @policy if @policy
+      ret = {"expiration" => 60.minutes.from_now.utc.xmlschema,
+             "conditions" =>  [
+                 {"bucket" =>  Figaro.env.s3_bucket_name},
+                 ["starts-with", "$key", ''],
+                 {"acl" => "public-read"},
+                 {"success_action_status" => "201"},
+                 ["starts-with", "$utf8", ''],
+                 ["starts-with", "$authenticity_token", ''],
+                 ["content-length-range", 0, Figaro.env.s3_max_file_size.to_i]
+             ]
+      }
+      @policy = Base64.encode64(ret.to_json).gsub(/\n/,'')
+    end
+
+    # sign our request by Base64 encoding the policy document.
+    def s3_upload_signature
+      signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), Figaro.env.aws_secret_access_key, s3_upload_policy_document)).gsub("\n","")
+    end
+
 end
