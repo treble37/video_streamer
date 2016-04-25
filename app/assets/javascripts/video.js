@@ -2,12 +2,13 @@
 
 (function(angular) {
   function videoUploaderCtr($scope, $routeParams, Upload, $timeout, $http) {
-    $scope.editInit = function(userId, title, description, length, bucketname) {
+    $scope.editInit = function(userId, title, description, videoFileName, length, bucketname) {
       $scope.title = title;
       $scope.description = description;
       $scope.userId = userId;
       $scope.length = length;
       $scope.estimatedTime = 0;
+      $scope.videoFileName = videoFileName;
       $scope.bucketname = bucketname;
     }
 

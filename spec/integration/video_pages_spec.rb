@@ -11,7 +11,6 @@ describe "VideoPages" do
     expect(page).to have_content "Title1"
     expect(page).to have_content "Description1"
     expect(page).to have_content "Length: 5:00"
-    expect(page).to have_content "video/mp4"
   end
 
   it "user edits video information" do

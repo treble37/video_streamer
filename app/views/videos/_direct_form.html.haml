@@ -1,4 +1,4 @@
-%div{ "ng-controller" => "videoUploaderCtr", "ng-init" => "editInit('#{@user.id}', '#{@video.title}', '#{@video.description}', '5 min', '#{Figaro.env.s3_bucket_name}')"}
+%div{ "ng-controller" => "videoUploaderCtr", "ng-init" => "editInit('#{@user.id}', '#{@video.title}', '#{@video.description}', 'Default Video Name', '5 min', '#{Figaro.env.s3_bucket_name}')"}
   = simple_form_for ([@user, @video]) do |f|
     - if @video.errors.any?
       #error_explanation

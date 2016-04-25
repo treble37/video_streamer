@@ -6,6 +6,7 @@ class AmazonService
   end
 
   def self.s3_key(user, year, title)
+    raise ArgumentError, "nil arguments not allowed" if user.nil? || year.nil? || title.nil? || user.try(:last_name).nil?
     "#{year}/#{user.last_name}_#{title}_#{DateTime.now.to_s}".gsub(/:/, '-')
   end
 end

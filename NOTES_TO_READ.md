@@ -6,7 +6,7 @@ This project is a video uploading application that allows uploading of mp4 video
 
 ####Approach
 
-I used Ruby on Rails and RSpec to test and drive out the unit tests, along with Capybara to drive the integration testing.
+I used Ruby on Rails and RSpec to test and drive out the unit tests, along with Capybara to drive some simple integration testing. I also used Jasmine to unit test that a controller function $scope property values are set correctly.
 
 ####User Interface
 
@@ -28,7 +28,7 @@ I used the RVM package manager and you'll notice the .ruby-gemset and .ruby-vers
 
 Step 1: *bundle install* to your RVM gemset (or whatever setup is most convenient for you)
 
-Step 2: *rake db:migrate* to setup the SQLite database locally and *rake db:seed* to create a sample user.
+Step 2: *rake db:migrate* to setup the Postgres database locally (you may have to create the postgres database in the database.yml file) and *rake db:seed* to create a sample user.
 
 Step 3: Do *rails s* at the command prompt and navigate to http://localhost:3000/
 
@@ -38,7 +38,7 @@ If you see ng-file-upload-all.js in app/assets/javascripts you do not have to do
 
 Step 4: You have to use your own Amazon S3 secret key information.  See application.yml.example for the format.  Substitute "xxx" with your own secret keys.
 
-Step 5: Enable CORS on Amazon with the following rule set:
+Step 5: Enable CORS on Amazon with the following rule set (basically, the most permissive for demo purposes).
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -75,6 +75,8 @@ Step 6: Enable this default bucket policy on your Amazon S3 plan and substitutde
 }
 ```
 
+Step 7: Running tests.  This app has Jasmine tests and RSpec tests. Run *rspec spec* to run the RSpec tests and *rake jasmine* and navigate to http://localhost:8888/ to see the results of the Jasimine tests.
+
 ###Running the web application
 
 If you've done up to Step 3, you should be able to navigate to http://localhost:3000/user_id/videos. Depending on if this is your first user, user_id will likely be equal to 1. But you may have to check with rails console to be sure.
@@ -85,9 +87,11 @@ From /videos, you can create a new video. After you create a new video, you can 
 
 This was created and tested on an Ubuntu 14.04 Linux system.  It should likely run on an OSx box without any trouble.
 
-###Testing and Limitations
+###Testing and Future Testing
 
 This was system was tested with small video files downloaded from Vimeo ranging in size from 1 to 50 MB.  Obviously video files can be much larger, so this is definitely something that should be tested with future work. It was also tested on a local development box and not on a cloud provider such as Heroku. This is something that could be done on a future release.
+
+I would also like to add stronger validation regarding which properties of a video should always be included (e.g., title, description, etc.) before being created as an object.
 
 ###Future work
 
@@ -97,6 +101,8 @@ There are a few features I would like to add in a future release. I list them be
 2 - Delete the video in the S3 bucket when a user deletes the video model
 3 - Some kind of image hover thumbnail as a user hovers over video choices
 4 - I could allow a user to upload a new video and override an existing one. I could also change the video listing to use image thumbnails.
-5 - A bit more test coverage would be a good goal. Right now, especially as more behavior is added to the system.
+5 - Allowing multiple file upload with multiple progress bar coverage could be useful.
+6 - A bit more test coverage would be a good goal, especially as more behavior is added to the system.
+7 - Make the video width and height a bit larger and possibly adjustable depending on user's screen size
 
 As always, in any software project, you have to decide on the core functionality to ship.

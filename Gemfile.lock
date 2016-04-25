@@ -168,6 +168,12 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
     ice_nine (0.11.2)
+    jasmine (2.4.0)
+      jasmine-core (~> 2.4)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.4.1)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -213,6 +219,7 @@ GEM
     parser (2.3.0.7)
       ast (~> 2.2)
     pg (0.18.4)
+    phantomjs (2.1.1.0)
     poltergeist (1.9.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -392,6 +399,7 @@ DEPENDENCIES
   haml-rails
   hirb
   httparty
+  jasmine
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
