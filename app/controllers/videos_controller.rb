@@ -10,6 +10,8 @@
 #  updated_at       :datetime         not null
 #  length           :string
 #  direct_video_url :text
+#  video_filename   :string
+#  video_type       :string
 #
 
 class VideosController < ApplicationController
