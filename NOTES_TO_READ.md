@@ -28,11 +28,11 @@ I used the RVM package manager and you'll notice the .ruby-gemset and .ruby-vers
 
 Step 1: *bundle install* to your RVM gemset (or whatever setup is most convenient for you)
 
-Step 2: *rake db:migrate* to setup the Postgres database locally (you may have to create the postgres database in the database.yml file) and *rake db:seed* to create a sample user.
+Step 2: *rake db:migrate* to setup the Postgres database locally (you have to create the postgres database in the database.yml file first if it's not on your system) and *rake db:seed* to create a sample user.
 
 Step 3: Do *rails s* at the command prompt and navigate to http://localhost:3000/
 
-If you see ng-file-upload-all.js in app/assets/javascripts you do not have to do the next step. I just used bower to get the front end plugins I needed.
+If you see ng-file-upload-all.js in app/assets/javascripts you do not have to do the next Optional step. I just used bower to get the front end plugins I needed.
 
   Optional step: bower install ng-file-upload --save
 
@@ -98,11 +98,17 @@ I would also like to add stronger validation regarding which properties of a vid
 There are a few features I would like to add in a future release. I list them below:
 
 1 - Add a user login system.
+
 2 - Delete the video in the S3 bucket when a user deletes the video model
+
 3 - Some kind of image hover thumbnail as a user hovers over video choices
+
 4 - I could allow a user to upload a new video and override an existing one. I could also change the video listing to use image thumbnails.
+
 5 - Allowing multiple file upload with multiple progress bar coverage could be useful.
+
 6 - A bit more test coverage would be a good goal, especially as more behavior is added to the system.
+
 7 - Make the video width and height a bit larger and possibly adjustable depending on user's screen size
 
 As always, in any software project, you have to decide on the core functionality to ship.
