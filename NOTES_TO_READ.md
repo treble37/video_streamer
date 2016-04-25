@@ -36,7 +36,7 @@ If you see ng-file-upload-all.js in app/assets/javascripts you do not have to do
 
   Optional step: bower install ng-file-upload --save
 
-Step 4: You have to use your own Amazon S3 secret key information.  See application.yml.example for the format.  Substitute "xxx" with your own secret keys.
+Step 4: You have to use your own Amazon S3 secret key information.  See application.yml.example for the format.  Substitute "xxx" with your own secret keys. For *s3_max_file_size* I set it to '50000000000' (i.e., 50 GB).
 
 Step 5: Enable CORS on Amazon with the following rule set (basically, the most permissive for demo purposes).
 
